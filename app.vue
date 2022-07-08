@@ -2,17 +2,20 @@
 
 <template>
   <main>
-    <h1>Lingo Bingo</h1>
-    <p>Klicka/space för att markera en bricka</p>
-    <div class="board">
-      <CellButton :word="item" v-for="(item, index) in words" :key="`word-${index}`" />
+    <h1 class="text-center">Lingo Bingo</h1>
+    <div class=" grid grid-cols-4 gap-4">
+      <div class="board col-span-3 grid grid-cols-5 grid-rows-5 gap-2 p-4">
+        <CellButton :word="item" v-for="(item, index) in words" :key="`word-${index}`" />
+      </div>
+
+      <div class="sidebar">
+        <p>the sidebar</p>
+      </div>
+
     </div>
   </main>
 
- <!-- <template>
-   <div>
-     <NuxtWelcome />
-   </div> -->
+
 </template>
 
 <script>
@@ -80,14 +83,14 @@ h1 {
   color: transparent;
 }
 .board {
-  margin: 30px auto;
+  // margin: 30px auto;
   border: 3px solid black;
-  padding: 15px;
+  // padding: 15px;
   border-radius: 5px;
-  display: flex;
-  flex-wrap: wrap;
+  // display: flex;
+  // flex-wrap: wrap;
   justify-content: space-evenly;
-  gap: 20px;
-  width: 140 * 5px;
+  // gap: 20px;
+  // width: 140 * 5px;
 }
 </style>
