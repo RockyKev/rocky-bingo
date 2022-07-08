@@ -3,40 +3,65 @@
 <template>
   <main>
     <h1 class="text-center">Lingo Bingo</h1>
-    <div class=" grid grid-cols-4 gap-4">
+
+    <!-- TODO: Add navbar -->
+
+    <div class="grid grid-cols-4 gap-4">
       <div class="board col-span-3 grid grid-cols-5 grid-rows-5 gap-2 p-4">
-        <CellButton :word="item" v-for="(item, index) in words" :key="`word-${index}`" />
+        <CellButton
+          :word="item"
+          v-for="(item, index) in words"
+          :key="`word-${index}`"
+        />
       </div>
 
       <div class="sidebar">
-        <p>the sidebar</p>
-        <TextareaField />
+      <!-- add shuffle button -->
+      <!-- add a-z button -->
+
+        <TextareaField @content="getContent" />
       </div>
-
-      
-
     </div>
   </main>
-
-
 </template>
 
 <script>
-import CellButton from '@/components/cell.vue';
-import TextareaField from '@/components/textareaField.vue';
+import CellButton from "@/components/cell.vue";
+import TextareaField from "@/components/textareaField.vue";
 
-// TODO: Get the url string 
+// TODO: Get the url string
 
 export default {
-  name: 'App',
+  name: "App",
   components: { CellButton },
   data() {
     return {
-      words: ['Lighthouse', 'Primary color', 'sans-serif', 'SEO', 'graphic profile',
-        'secondary color', 'color wheel', 'UI/UX', 'gitmoji', 'React',
-        'Vue', 'Sass', 'Illustrator', 'Photoshop', 'Figma',
-        'pull request', 'API', 'a11y', 'Internet Explorer', 'WordPress',
-        'Heroku', 'HTML', 'router', 'responsive', 'agile',
+      words: [
+        "Lighthouse",
+        "Primary color",
+        "sans-serif",
+        "SEO",
+        "graphic profile",
+        "secondary color",
+        "color wheel",
+        "UI/UX",
+        "gitmoji",
+        "React",
+        "Vue",
+        "Sass",
+        "Free Space",
+        "Photoshop",
+        "Figma",
+        "pull request",
+        "API",
+        "a11y",
+        "Internet Explorer",
+        "WordPress",
+        "Heroku",
+        "HTML",
+        "router",
+        "responsive",
+        "agile",
       ],
     };
   },
@@ -51,9 +76,23 @@ export default {
         // And swap it with the current element.
         // eslint-disable-next-line no-param-reassign
         [array[currentIndex], array[randomIndex]] = [
-          array[randomIndex], array[currentIndex]];
+          array[randomIndex],
+          array[currentIndex],
+        ];
       }
       return array;
+    },
+    getContent(value) {
+      // strip it so only 15 show up
+      const newValue = value.length < 25 ? value : value.splice(0, 25);
+
+      // replace number 13
+      newValue[12] = "Free Space";
+
+      console.log("from the child!");
+      console.log(typeof newValue);
+      console.log(newValue);
+      this.words = newValue;
     },
   },
   mounted() {
@@ -63,7 +102,9 @@ export default {
 </script>
 
 <style lang="scss">
-* { box-sizing: border-box }
+* {
+  box-sizing: border-box;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -73,18 +114,19 @@ export default {
   margin-top: 60px;
 }
 h1 {
-  font-family: 'Rock 3D', cursive;
+  font-family: "Rock 3D", cursive;
   font-size: 8rem;
   margin: 0;
   line-height: 1.2;
-  background-image: linear-gradient(to left,
-      #0dc4b7,
-      #9a2654,
-      #2a47d5,
-      #19d519,
-      #e9ff00,
-      #ff8000,
-      #f30a0a
+  background-image: linear-gradient(
+    to left,
+    #0dc4b7,
+    #9a2654,
+    #2a47d5,
+    #19d519,
+    #e9ff00,
+    #ff8000,
+    #f30a0a
   );
   -webkit-background-clip: text;
   color: transparent;
