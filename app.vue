@@ -10,7 +10,10 @@
 
       <div class="sidebar">
         <p>the sidebar</p>
+        <TextareaField />
       </div>
+
+      
 
     </div>
   </main>
@@ -20,6 +23,10 @@
 
 <script>
 import CellButton from '@/components/cell.vue';
+import TextareaField from '@/components/textareaField.vue';
+
+// TODO: Get the url string 
+
 export default {
   name: 'App',
   components: { CellButton },

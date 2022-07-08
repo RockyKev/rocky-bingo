@@ -30,7 +30,11 @@ export default {
 };
 </script>
 
+
+
 <style lang="scss" scoped>
+// TODO: This color sucks
+
 button {
   cursor: pointer;
   border: 5px solid red;
