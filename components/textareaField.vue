@@ -23,13 +23,13 @@
       focus:outline-none
     "
     rows="20"
-    placeholder="Your message"
+    v-model="submittedData"
   ></textarea>
 
   <button
-    @click="doStuff"
+    @click="bingoButtonClicked"
     :disabled="!buttonIsEnabled"
-    :class=" { 'opacity-60' : !buttonIsEnabled } "
+    :class="{ 'opacity-60': !buttonIsEnabled }"
     class="
       inline-block
       px-7
@@ -50,7 +50,7 @@
       ease-in-out
     "
   >
-    {{buttonText}}
+    {{ buttonText }}
   </button>
 </template>
 
@@ -59,68 +59,85 @@ export default {
   name: "TextareaField",
   data() {
     return {
-      submittedData: [],
+      submittedDataArray: [],
       buttonIsEnabled: false,
       spaceCount: 0,
-      spaceMinimum: 3
+      spaceMinimum: 25,
+      submittedData: `jack
+john
+sarah
+steve
+william
+spogue
+john
+sarah
+steve
+william
+john
+sarah
+steve
+william
+spogue
+john
+sarah
+steve
+william
+john
+sarah
+steve
+william
+spogue
+john
+sarah
+steve
+william
+spogue
+john
+sarah
+steve
+william
+spogue`,
     };
-  },
-  props: {
-    word: {
-      type: String,
-      default: "x",
-    },
   },
   computed: {
     buttonText() {
       // return text based on count
       if (this.spaceCount < this.spaceMinimum) {
-        return "you need " + (this.spaceMinimum - this.spaceCount) + " more"
+        return "you need " + (this.spaceMinimum - this.spaceCount) + " more";
       } else {
-        return "Ready to Bingo!"
+        return "Ready to Bingo!";
       }
-
-    }
+    },
+  },
+  mounted() {
+    this.countTextArea();
   },
   methods: {
-    // TODO: get data from submit buttom
-    getData() {
-      // if less than 15
+    countTextArea() {
+      let text = this.submittedData;
 
-      console.log("ima clickin'");
-    },
-
-    // only enable button when 15 things are added
-    handleText(event) {
-      console.log(event.target.value);
-
-      let text = event.target.value;
-
-      // count how many commas
       console.log("commaCount", this.spaceCount);
-      // this.commaCount = (text.match(/,/g) || []).length;
-      this.spaceCount = (text.match(/[^\n]*\n[^\n]*/gi) || []).length
+      this.spaceCount = (text.match(/[^\n]*\n[^\n]*/gi) || []).length;
 
       if (this.spaceCount < this.spaceMinimum) {
-        // enable button
-        this.submittedData = [];
+        this.submittedDataArray = [];
         this.buttonIsFalse = true;
       } else {
-        console.log("we're in comma world!", text);
+        // only enable button when 15 things are added
         this.buttonIsEnabled = true;
-        this.submittedData = text.split(/\n/g);
-
-}
+        this.submittedDataArray = text.split(/\n/g);
+      }
     },
-
-    // figure out how to sort it
 
     // new button to save the data in json
 
     // new button to share the url of this.
 
-    doStuff() {
-      console.log("ima clickin'");
+    bingoButtonClicked() {
+        // emit upwards
+        this.$emit('content', this.submittedDataArray)
+
+        console.log("ima clickin'");
     },
 
     toggleSelection() {
