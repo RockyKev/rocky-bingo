@@ -1,6 +1,6 @@
 <template>
   <textarea
-    @change="handleText"
+    @change="checkSubmittedData"
     spellcheck="true"
     class="
       form-control
@@ -81,8 +81,8 @@
 
   <button
     @click="exportButtonClicked"
-    :disabled="!buttonIsEnabled"
-    :class="{ 'opacity-60': !buttonIsEnabled }"
+    :disabled="!exportButtonIsEnabled"
+    :class="{ 'opacity-60': !exportButtonIsEnabled }"
     class="
       inline-block
       px-7
@@ -108,13 +108,14 @@
 </template>
 
 <script>
-import { shuffle } from "@/js/shared.js";
+import { shuffle, encodeDataToURL, encodeBase64, decodeBase64 } from "@/js/shared.js";
 
 export default {
   name: "TextareaField",
   data() {
     return {
       buttonIsEnabled: false,
+      exportIsEnabled: false,
       spaceCount: 0,
       spaceMinimum: 25,
       submittedData25: [],
@@ -166,12 +167,17 @@ spogue`,
         return "Ready to Bingo!";
       }
     },
+    exportButtonIsEnabled() {
+
+      // check if these all have values
+       
+      return (this.submittedData25.length && this.submittedDataArray.length && this.submittedData.length) ? true : false; 
+    }
   },
   mounted() {
     this.checkSubmittedData();
   },
   methods: {
-    
     emitToParent(attributeName, value) {
       // emit upwards
       // this.$emit('content', this.submittedDataArray);
@@ -215,11 +221,11 @@ spogue`,
       }
     },
     return25Entries(value) {
-      console.log("return 25 entries starting now")
-      console.log("current value")
+      console.log("return 25 entries starting now");
+      console.log("current value");
       console.log(value);
-      // strip it so only 15 show up
-      const newValue = value.length < 25 ? value : value.splice(0, 25);
+      // strip it so only 25 show up
+      const newValue = value.length < 25 ? value : value.slice(0, 25);
 
       console.log("Before cleaning it up");
       console.log({ newValue });
@@ -230,16 +236,31 @@ spogue`,
       return newValue;
     },
     shuffleButtonClicked() {
+
+      // check if submitted data is the same
+
       console.log("this.submittedDataArray", this.submittedDataArray);
 
-      this.submittedDataArray = shuffle(this.submittedDataArray);
-      this.emitToParent();
+      // update with attribute/value
+      this.submittedData25 = this.return25Entries(
+        shuffle(this.submittedDataArray)
+      );
+
+      this.emitToParent("content", this.submittedData25);
     },
     exportButtonClicked() {
       // 1 - get what's in the content area
-      const preExportedData = [this.submittedData, this.submittedDataArray];
+      console.log("exporting button now!");
+
+      const preExportedData = { 'data': this.submittedData, 
+                                'dataArray': toRaw(this.submittedDataArray), 
+                                'data25' : toRaw(this.submittedData25)
+                                 } ;
+
+      console.log(preExportedData);
 
       // 2 - turn it into a hash
+      console.log(encodeBase64(encodeDataToURL(preExportedData)))
 
       // 3 - add it to the URL
 

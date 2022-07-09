@@ -15,3 +15,19 @@ export function shuffle(array) {
   console.log("ive been shuffled");
   return array;
 }
+
+// https://stackoverflow.com/a/45844934/4096078
+export function encodeBase64(string) {
+  return window.btoa(unescape(encodeURIComponent(string)));
+}
+
+export function decodeBase64(base64) {
+  return decodeURIComponent(escape(window.atob(base64)));
+}
+
+export function encodeDataToURL(data) {
+  return Object
+    .keys(data)
+    .map(value => `${value}=${encodeURIComponent(data[value])}`)
+    .join('&');
+}
