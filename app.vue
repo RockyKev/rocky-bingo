@@ -8,7 +8,7 @@
 
     <div class="grid grid-cols-4 gap-4">
       <div class="board col-span-3 grid grid-cols-5 grid-rows-5 gap-2 p-4">
-        <CellButton
+        <BingoCell
           :word="item"
           v-for="(item, index) in words"
           :key="`word-${index}`"
@@ -26,14 +26,15 @@
 </template>
 
 <script>
-import CellButton from "@/components/cell.vue";
-import TextareaField from "@/components/textareaField.vue";
+import BingoCell from "@/components/BingoCell.vue";
+import TextareaField from "@/components/TextareaField.vue";
+import { shuffle } from "@/js/shared.js";
 
 // TODO: Get the url string
 
 export default {
   name: "App",
-  components: { CellButton },
+  components: { BingoCell, TextareaField },
   data() {
     return {
       words: [
@@ -66,37 +67,33 @@ export default {
     };
   },
   methods: {
-    shuffle(array) {
-      let currentIndex = array.length;
-      let randomIndex;
-      while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        // eslint-disable-next-line no-plusplus
-        currentIndex--;
-        // And swap it with the current element.
-        // eslint-disable-next-line no-param-reassign
-        [array[currentIndex], array[randomIndex]] = [
-          array[randomIndex],
-          array[currentIndex],
-        ];
-      }
-      return array;
-    },
+    // shuffle(array) {
+    //   let currentIndex = array.length;
+    //   let randomIndex;
+    //   while (currentIndex !== 0) {
+    //     randomIndex = Math.floor(Math.random() * currentIndex);
+    //     // eslint-disable-next-line no-plusplus
+    //     currentIndex--;
+    //     // And swap it with the current element.
+    //     // eslint-disable-next-line no-param-reassign
+    //     [array[currentIndex], array[randomIndex]] = [
+    //       array[randomIndex],
+    //       array[currentIndex],
+    //     ];
+    //   }
+    //   return array;
+    // },
     getContent(value) {
-      // strip it so only 15 show up
-      const newValue = value.length < 25 ? value : value.splice(0, 25);
 
-      // replace number 13
-      newValue[12] = "Free Space";
-
-      console.log("from the child!");
-      console.log(typeof newValue);
-      console.log(newValue);
-      this.words = newValue;
+      console.log("I'm getting the content from the child! Passing it over to this.words")
+      console.log({value})
+      this.words = value;
     },
   },
   mounted() {
-    this.words = this.shuffle(this.words);
+    console.log("I have been mounted", this.words)
+    this.words = shuffle(this.words);
+    console.log("I have been shuffled", this.words)
   },
 };
 </script>
