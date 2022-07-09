@@ -105,17 +105,48 @@
   >
     Export
   </button>
+
+  <input
+    v-show="exportInputIsShowing"
+    @click="exportInputOnClick"
+    v-model="exportInputField"
+    placeholder="stuff"
+    class=" form-control
+        block
+        w-full
+        px-3
+        py-1.5
+        text-base
+        font-normal
+        text-gray-700
+        bg-white bg-clip-padding
+        border border-solid border-gray-300
+        rounded
+        transition
+        ease-in-out
+        m-0
+        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+  />
 </template>
 
 <script>
-import { shuffle, encodeDataToURL, encodeBase64, decodeBase64 } from "@/js/shared.js";
+import {
+  shuffle,
+  encodeDataToURL,
+  encodeBase64,
+  decodeBase64,
+} from "@/js/shared.js";
+
+// // https://stackoverflow.com/a/68681664/4096078
+// import { computed, defineComponent, useRoute } from '@nuxtjs/composition-api'
 
 export default {
   name: "TextareaField",
   data() {
     return {
       buttonIsEnabled: false,
-      exportIsEnabled: false,
+      exportInputIsShowing: false,
+      exportInputField: "",
       spaceCount: 0,
       spaceMinimum: 25,
       submittedData25: [],
@@ -168,11 +199,13 @@ spogue`,
       }
     },
     exportButtonIsEnabled() {
-
       // check if these all have values
-       
-      return (this.submittedData25.length && this.submittedDataArray.length && this.submittedData.length) ? true : false; 
-    }
+      return this.submittedData25.length &&
+        this.submittedDataArray.length &&
+        this.submittedData.length
+        ? true
+        : false;
+    },
   },
   mounted() {
     this.checkSubmittedData();
@@ -236,7 +269,6 @@ spogue`,
       return newValue;
     },
     shuffleButtonClicked() {
-
       // check if submitted data is the same
 
       console.log("this.submittedDataArray", this.submittedDataArray);
@@ -249,22 +281,35 @@ spogue`,
       this.emitToParent("content", this.submittedData25);
     },
     exportButtonClicked() {
+
+      // show the input
+      this.exportInputIsShowing = true;
+
       // 1 - get what's in the content area
       console.log("exporting button now!");
 
-      const preExportedData = { 'data': this.submittedData, 
-                                'dataArray': toRaw(this.submittedDataArray), 
-                                'data25' : toRaw(this.submittedData25)
-                                 } ;
+      const preExportedData = {
+        data: this.submittedData,
+        dataArray: toRaw(this.submittedDataArray),
+        data25: toRaw(this.submittedData25),
+      };
 
       console.log(preExportedData);
 
+
+      const baseUrl = 'localhost:3000';
       // 2 - turn it into a hash
-      console.log(encodeBase64(encodeDataToURL(preExportedData)))
+      // console.log(encodeBase64(encodeDataToURL(preExportedData)))
+      this.exportInputField = `${baseUrl}/?src=${encodeBase64(encodeDataToURL(preExportedData))}`;
+      console.log(this.exportInputField);
+      
+      // TODO: 3 - it should add a popup saying the link is now in your clipboard.
 
-      // 3 - add it to the URL
+    },
+    exportInputOnClick() {
+        // TODO: copy to clipboard
 
-      // 4 - it should add a popup saying the link is now in your clipboard.
+        console.log("ive been clicked!");
     },
     toggleSelection() {
       this.isSelected = !this.isSelected;

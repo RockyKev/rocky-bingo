@@ -112,7 +112,7 @@ export default {
 }
 h1 {
   font-family: "Rock 3D", cursive;
-  font-size: 8rem;
+  font-size: 3rem;
   margin: 0;
   line-height: 1.2;
   background-image: linear-gradient(
