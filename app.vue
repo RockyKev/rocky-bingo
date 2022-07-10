@@ -96,20 +96,24 @@ export default {
   },
   created() {
     console.log("App been mounted", this.words)
-    this.words = shuffle(this.words);
-    console.log("App been shuffled", this.words)
-    console.log(this.$route.query.src)
 
     if (this.$route.query.src) {
       console.log("data found. Decoding data!")
       const uriParam = decodeURIToData(this.$route.query.src);
        console.log("finished decodeURIToData");
 
-      // this.urlData = 
+      // pass this to sidebar
       console.log(uriParam);
       this.restoredData = uriParam;
       console.log("data successfully restored")
+
+      // pass this to current data
+      this.words = this.restoredData.data25
     }
+
+    this.words = shuffle(this.words);
+    console.log("App been shuffled", this.words)
+    console.log(this.$route.query.src)
 
 
   },

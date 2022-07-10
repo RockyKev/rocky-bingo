@@ -217,6 +217,8 @@ spogue`,
         this.submittedDataArray = this.restoredData.dataArray;
         this.submittedData = this.restoredData.data;
 
+        this.checkSubmittedData();
+        
       } else {
         // check default stuff
         console.log("inside textareField mounted! --> in else, this submittedData");
