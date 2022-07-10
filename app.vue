@@ -2,7 +2,7 @@
 
 <template>
   <main>
-    <h1 class="text-center">Lingo Bingo</h1>
+    <h1 class="text-center">Lingo Bingo?</h1>
 
     <!-- TODO: Add navbar -->
 
@@ -19,7 +19,7 @@
       <!-- add shuffle button -->
       <!-- add a-z button -->
 
-        <TextareaField @content="getContent" />
+        <TextareaField :restored-data="restoredData" @content="getContent" />
       </div>
     </div>
   </main>
@@ -28,15 +28,15 @@
 <script>
 import BingoCell from "@/components/BingoCell.vue";
 import TextareaField from "@/components/TextareaField.vue";
-import { shuffle } from "@/js/shared.js";
+import { shuffle, decodeURIToData } from "@/js/shared.js";
 
-// TODO: Get the url string
 
 export default {
   name: "App",
   components: { BingoCell, TextareaField },
   data() {
     return {
+      restoredData: "",
       words: [
         "Lighthouse",
         "Primary color",
@@ -66,7 +66,12 @@ export default {
       ],
     };
   },
+
   methods: {
+
+    // TODO: Get the url string
+
+
     // shuffle(array) {
     //   let currentIndex = array.length;
     //   let randomIndex;
@@ -84,16 +89,29 @@ export default {
     //   return array;
     // },
     getContent(value) {
-
       console.log("I'm getting the content from the child! Passing it over to this.words")
       console.log({value})
       this.words = value;
     },
   },
-  mounted() {
-    console.log("I have been mounted", this.words)
+  created() {
+    console.log("App been mounted", this.words)
     this.words = shuffle(this.words);
-    console.log("I have been shuffled", this.words)
+    console.log("App been shuffled", this.words)
+    console.log(this.$route.query.src)
+
+    if (this.$route.query.src) {
+      console.log("data found. Decoding data!")
+      const uriParam = decodeURIToData(this.$route.query.src);
+       console.log("finished decodeURIToData");
+
+      // this.urlData = 
+      console.log(uriParam);
+      this.restoredData = uriParam;
+      console.log("data successfully restored")
+    }
+
+
   },
 };
 </script>

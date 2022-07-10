@@ -132,9 +132,7 @@
 <script>
 import {
   shuffle,
-  encodeDataToURL,
-  encodeBase64,
-  decodeBase64,
+  encodeDataToURI
 } from "@/js/shared.js";
 
 // // https://stackoverflow.com/a/68681664/4096078
@@ -142,13 +140,16 @@ import {
 
 export default {
   name: "TextareaField",
+  props: {
+    restoredData: null,
+  },  
   data() {
     return {
       buttonIsEnabled: false,
       exportInputIsShowing: false,
       exportInputField: "",
       spaceCount: 0,
-      spaceMinimum: 25,
+      spaceMinimum: 25 - 1,
       submittedData25: [],
       submittedDataArray: [],
       submittedData: `jack
@@ -208,7 +209,22 @@ spogue`,
     },
   },
   mounted() {
-    this.checkSubmittedData();
+      // check if there's prop data
+      console.log("inside textareField mounted!", this.restoredData)
+      if (typeof this.restoredData === 'object') {
+        console.log("inside textareField mounted! --> data restored from URL successful!")
+        this.submittedData25 = this.restoredData.data25;
+        this.submittedDataArray = this.restoredData.dataArray;
+        this.submittedData = this.restoredData.data;
+
+      } else {
+        // check default stuff
+        console.log("inside textareField mounted! --> in else, this submittedData");
+
+        this.checkSubmittedData();
+      }
+
+
   },
   methods: {
     emitToParent(attributeName, value) {
@@ -300,8 +316,17 @@ spogue`,
       const baseUrl = 'localhost:3000';
       // 2 - turn it into a hash
       // console.log(encodeBase64(encodeDataToURL(preExportedData)))
-      this.exportInputField = `${baseUrl}/?src=${encodeBase64(encodeDataToURL(preExportedData))}`;
-      console.log(this.exportInputField);
+      // stringify -> encode it for URI safety -> base64 it
+      // const stringify = JSON.stringify(preExportedData);
+      // console.log({stringify})
+      // const encodeURI = encodeURIComponent(stringify);
+      // console.log({encodeURI})
+      // const base64 = encodeBase64(encodeURI)
+      // console.log({base64})
+      const base64 = encodeDataToURI(preExportedData);
+
+      console.log("finished baseUri, now exporting to input field")
+      this.exportInputField = `${baseUrl}/?src=${base64}`;
       
       // TODO: 3 - it should add a popup saying the link is now in your clipboard.
 
