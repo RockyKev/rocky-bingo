@@ -4,24 +4,22 @@
   <main>
     <PageHeader></PageHeader>
 
-    <!-- TODO: Add navbar -->
-
     <div class="flex" :class="{ 'show-sidebar': !sidebarOpen }">
-      <div
-        class="
-          board
-          col-span-3
-          grid grid-cols-5 grid-rows-5
-          gap-2
-          p-4
-          duration-300
-        "
-      >
-        <BingoCell
-          :word="item"
-          v-for="(item, index) in words"
-          :key="`word-${index}`"
-        />
+      <div class="gameboard duration-300">
+        <div class="board col-span-3 grid grid-cols-5 grid-rows-5 gap-2 p-4 h-full">
+          <!-- 25 bingo cells-->
+          <BingoCell
+            :word="item"
+            v-for="(item, index) in words"
+            :key="`word-${index}`"
+          />
+        </div>
+        <div class="lower-links">
+          <a @click="exportToPDF">Export to PDF</a> | 
+          <a @click="fillWith('westworld')">WestWorld Season 4</a> | 
+          <a @click="fillWith('obiwan')">Obi Wan Series</a> | 
+          <a @click="fillWith('screenshare')">Screenshare</a>
+        </div>
       </div>
 
       <aside class="sidebar flex-shrink-0 relative duration-300 pl-4">
@@ -122,6 +120,16 @@ export default {
     //   }
     //   return array;
     // },
+    exportToPDF() {
+      
+      
+    },
+    fillWith(content) {
+
+      console.log("clicked fillWith", content)
+
+
+    }
     getContent(value) {
       console.log(
         "I'm getting the content from the child! Passing it over to this.words"
@@ -159,7 +167,7 @@ export default {
   box-sizing: border-box;
 }
 body {
-  // overflow-x: hidden; /* Hide vertical scrollbar */
+  overflow-x: hidden; /* Hide vertical scrollbar */
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -170,7 +178,7 @@ body {
   margin-top: 60px;
 }
 
-.board {
+.gameboard {
   // margin: 30px auto;
   border: 3px solid black;
   // padding: 15px;
@@ -196,7 +204,7 @@ body {
 }
 
 .show-sidebar {
-  .board {
+  .gameboard {
     flex-shrink: 0;
     flex-basis: 75%;
   }
