@@ -2,9 +2,11 @@
 
 <template>
   <main>
-    <h1 class="text-center">Lingo Bingo?</h1>
+    <PageHeader></PageHeader>
 
     <!-- TODO: Add navbar -->
+
+
 
     <div class="grid grid-cols-4 gap-4">
       <div class="board col-span-3 grid grid-cols-5 grid-rows-5 gap-2 p-4">
@@ -28,12 +30,13 @@
 <script>
 import BingoCell from "@/components/BingoCell.vue";
 import TextareaField from "@/components/TextareaField.vue";
+import PageHeader from "./components/PageHeader.vue";
 import { shuffle, decodeURIToData } from "@/js/shared.js";
 
 
 export default {
   name: "App",
-  components: { BingoCell, TextareaField },
+  components: { BingoCell, TextareaField, PageHeader },
   data() {
     return {
       restoredData: "",
@@ -132,24 +135,7 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
-h1 {
-  font-family: "Rock 3D", cursive;
-  font-size: 3rem;
-  margin: 0;
-  line-height: 1.2;
-  background-image: linear-gradient(
-    to left,
-    #0dc4b7,
-    #9a2654,
-    #2a47d5,
-    #19d519,
-    #e9ff00,
-    #ff8000,
-    #f30a0a
-  );
-  -webkit-background-clip: text;
-  color: transparent;
-}
+
 .board {
   // margin: 30px auto;
   border: 3px solid black;
