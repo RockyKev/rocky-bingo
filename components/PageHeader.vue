@@ -16,7 +16,7 @@
       "
     >
       <div>
-        <a href="#">
+        <a href="/">
           <h1 class="text-xl font-bold text-white">Rocky Bingo Generator</h1>
           <!-- <svg
           

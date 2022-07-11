@@ -152,40 +152,7 @@ export default {
       spaceMinimum: 25 - 1,
       submittedData25: [],
       submittedDataArray: [],
-      submittedData: `jack
-john
-sarah
-steve
-william
-spogue
-john
-sarah
-steve
-william
-john
-sarah
-steve
-william
-spogue
-john
-sarah
-steve
-william
-john
-sarah
-steve
-william
-spogue
-john
-sarah
-steve
-william
-spogue
-john
-sarah
-steve
-william
-spogue`,
+      submittedData: `Hamburgers\nSushi\nPancakes\nNoodles\nChocolate\nBlueberries\nSalmon\nBanana\nIce Cream\nHam\nOysters\nMashed potatoes\nSoup\nAsparagus\nSteak\nChicken\nPizza\nWaffles\nBeef\nMozzarella cheese\nBacon\nCorned beef\nAvocado\nPasta\nPineapple\nPeanut Butter`,
     };
   },
   computed: {
@@ -347,3 +314,4 @@ spogue`,
 
 <style lang="scss" scoped>
 </style>
+
