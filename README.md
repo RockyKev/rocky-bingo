@@ -1,5 +1,9 @@
 # Rocky Bingo 
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/1c038a8a-e963-4ede-859c-7d20a4512dec/deploy-status)](https://app.netlify.com/sites/rocky-bingo/deploys)
+
+See it live at [rocky-bingo.netlify.app](rocky-bingo.netlify.app).
+
 Inspired by https://github.com/queer/outage.bingo
 and https://vuejsexamples.com/lingo-bingo-board-game-built-using-vue-js/
 
