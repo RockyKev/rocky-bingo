@@ -1,42 +1,30 @@
-# Nuxt 3 Minimal Starter
+# Rocky Bingo 
 
-Look at the [nuxt 3 documentation](https://v3.nuxtjs.org) to learn more.
+Inspired by https://github.com/queer/outage.bingo
+and https://vuejsexamples.com/lingo-bingo-board-game-built-using-vue-js/
 
-## Setup
 
-Make sure to install the dependencies:
+## Description
+
+
+
+## Stack
+
+Using [Nuxt 3 RC](https://v3.nuxtjs.org). 
 
 ```bash
-# yarn
-yarn install
-
 # npm
 npm install
-
-# pnpm
-pnpm install --shamefully-hoist
 ```
-
-## Development Server
-
 Start the development server on http://localhost:3000
 
 ```bash
 npm run dev
 ```
 
-## Production
-
-Build the application for production:
-
 ```bash
 npm run build
 ```
-
-Locally preview production build:
-
-```bash
-npm run preview
-```
-
 Checkout the [deployment documentation](https://v3.nuxtjs.org/guide/deploy/presets) for more information.
+
+## Server

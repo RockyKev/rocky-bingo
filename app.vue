@@ -4,9 +4,12 @@
   <main>
     <PageHeader></PageHeader>
 
+
     <div class="flex" :class="{ 'show-sidebar': !sidebarOpen }">
-      <div class="gameboard duration-300">
-        <div class="board col-span-3 grid grid-cols-5 grid-rows-5 gap-2 p-4 h-full">
+      <div class="gameboard duration-300" ref="gameboard">
+        <div
+          class="board col-span-3 grid grid-cols-5 grid-rows-5 gap-2 p-4 h-full"
+        >
           <!-- 25 bingo cells-->
           <BingoCell
             :word="item"
@@ -15,10 +18,16 @@
           />
         </div>
         <div class="lower-links">
-          <a @click="exportToPDF">Export to PDF</a> | 
-          <a @click="fillWith('westworld')">WestWorld Season 4</a> | 
-          <a @click="fillWith('obiwan')">Obi Wan Series</a> | 
-          <a @click="fillWith('screenshare')">Screenshare</a>
+          <a @click="exportToPDF">Export to PDF</a> |
+          <label>Prefill with:</label>
+          <select @change="fillWith($event)">
+            <option value="tv_westworld_s4_ep1">WestWorld Season 4 Intro</option>
+            <option value="tv_obiwan_s1">Obi Wan Series</option>
+            <option value="etc_office">In a meeting</option>
+          </select> 
+          <!-- <a @click="fillWith('westworld')">WestWorld Season 4</a> |
+          <a @click="fillWith('obiwan')">Obi Wan Series</a> |
+          <a @click="fillWith('screenshare')">Screenshare</a> -->
         </div>
       </div>
 
@@ -121,15 +130,22 @@ export default {
     //   return array;
     // },
     exportToPDF() {
-      
-      
+      // https://stackoverflow.com/a/24825130/4096078
+
+      const domElement = this.$refs.gameboard;
+      console.log("export this domElement", domElement);
+
+      this.$domToImage(domElement);
+   
+      console.log("at the end");
+
     },
-    fillWith(content) {
+    fillWith(event) {
 
-      console.log("clicked fillWith", content)
+      const selected = event.target.value;
 
-
-    }
+      console.log("clicked fillWith", selected);
+    },
     getContent(value) {
       console.log(
         "I'm getting the content from the child! Passing it over to this.words"
@@ -180,7 +196,8 @@ body {
 
 .gameboard {
   // margin: 30px auto;
-  border: 3px solid black;
+  border: 2px solid lightgray;
+  background: white;
   // padding: 15px;
   border-radius: 5px;
   // display: flex;

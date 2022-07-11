@@ -37,14 +37,15 @@ export default {
 
 button {
   cursor: pointer;
-  border: 5px solid red;
+  border: 5px solid lightcoral;
   border-radius: 35px;
   //   min-width: 75px;
   //   min-height: 75px;
   //   width: 100px;
   //   height: 100px;
   width: 100%;
-  height: 100%;
+  // height: 100%;
+  // aspect-ratio: 1 / 1;
   padding: 20px;
 
   background: transparent;
@@ -56,10 +57,12 @@ button {
 
 
   &.selected {
-    background: pink;
+    background: lightgreen;
+    border-color: darkcyan
   }
   &:focus {
-    border-color: orange;
+    border-color: blue;
+    border-width: 6px;
     outline: 0;
   }
 }
