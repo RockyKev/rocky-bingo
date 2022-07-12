@@ -29,9 +29,6 @@
             <option value="tv_obiwan_s1">Obi Wan Series</option>
             <option value="etc_office">In a meeting</option>
           </select>
-          <!-- <a @click="fillWith('westworld')">WestWorld Season 4</a> |
-          <a @click="fillWith('obiwan')">Obi Wan Series</a> |
-          <a @click="fillWith('screenshare')">Screenshare</a> -->
         </div>
       </div>
 
@@ -52,21 +49,8 @@
           Sidebar
         </button>
 
-        <!-- <div class="h-64 bg-gray-900"></div> -->
-        <!-- <nav class="flex-1 flex flex-col bg-white">
-          <a href="#" class="p-2">Nav Link 1</a>
-          <a href="#" class="p-2">Nav Link 2</a>
-          <a href="#" class="p-2">Nav Link 3</a>
-        </nav> -->
-
         <TextareaField :restored-data="restoredData" @content="getContent" />
       </aside>
-
-      <!-- <div class="sidebar">
-         add shuffle button -->
-      <!-- add a-z button -->
-
-      <!-- </div>  -->
     </div>
 
     <!-- TODO: Put about page here-->
@@ -113,59 +97,28 @@ export default {
         "Sushi",
         "Asparagus",
         "Beef",
-        "Ice Cream"
+        "Ice Cream",
       ],
     };
   },
 
   methods: {
-    // TODO: Get the url string
-
-    // shuffle(array) {
-    //   let currentIndex = array.length;
-    //   let randomIndex;
-    //   while (currentIndex !== 0) {
-    //     randomIndex = Math.floor(Math.random() * currentIndex);
-    //     // eslint-disable-next-line no-plusplus
-    //     currentIndex--;
-    //     // And swap it with the current element.
-    //     // eslint-disable-next-line no-param-reassign
-    //     [array[currentIndex], array[randomIndex]] = [
-    //       array[randomIndex],
-    //       array[currentIndex],
-    //     ];
-    //   }
-    //   return array;
-    // },
     exportToPDF() {
       // https://stackoverflow.com/a/24825130/4096078
 
       const domElement = this.$refs.gameboard;
-      console.log("export this domElement", domElement);
-
       this.$domToImage(domElement);
-
-      console.log("at the end");
     },
     fillWith(event) {
-      // const selected = event.target.value;
-      // const selected = this.$route.query.src;
       const selected = event;
 
-      console.log("data found. Decoding data!");
       const jsObject = decodeURIToData(selected);
-      console.log("finished decodeURIToData");
 
       // pass this to sidebar
-      console.log(jsObject);
       this.restoredData = jsObject;
-      console.log("data successfully restored");
 
       // pass this to current data
       this.words = this.restoredData.data25;
-
-      // TODO: this should be a json file
-
       console.log("clicked fillWith", selected);
     },
     prefillSelect(event) {
@@ -194,24 +147,13 @@ export default {
     console.log("App been mounted", this.words);
 
     if (this.$route.query.src) {
-      // console.log("data found. Decoding data!");
-      // const uriParam = decodeURIToData(this.$route.query.src);
-      // console.log("finished decodeURIToData");
-
-      // // pass this to sidebar
-      // console.log(uriParam);
-      // this.restoredData = uriParam;
-      // console.log("data successfully restored");
-
       // // pass this to current data
-      // this.words = this.restoredData.data25;
       this.fillWith(this.$route.query.src);
     }
 
+    // TODO: BUG here! Will create multiple Free Space
     this.words = shuffle(this.words);
     this.words[12] = "Free Space";
-    console.log("App been shuffled", this.words);
-    console.log(this.$route.query.src);
   },
 };
 </script>
@@ -233,16 +175,10 @@ body {
 }
 
 .gameboard {
-  // margin: 30px auto;
   border: 2px solid lightgray;
   background: white;
-  // padding: 15px;
   border-radius: 5px;
-  // display: flex;
-  // flex-wrap: wrap;
   justify-content: space-evenly;
-  // gap: 20px;
-  // width: 140 * 5px;
   flex-shrink: 0;
   flex-basis: 99%;
 }

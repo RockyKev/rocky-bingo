@@ -111,38 +111,37 @@
     @click="exportInputOnClick"
     v-model="exportInputField"
     placeholder="stuff"
-    class=" form-control
-        block
-        w-full
-        px-3
-        py-1.5
-        text-base
-        font-normal
-        text-gray-700
-        bg-white bg-clip-padding
-        border border-solid border-gray-300
-        rounded
-        transition
-        ease-in-out
-        m-0
-        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+    class="
+      form-control
+      block
+      w-full
+      px-3
+      py-1.5
+      text-base
+      font-normal
+      text-gray-700
+      bg-white bg-clip-padding
+      border border-solid border-gray-300
+      rounded
+      transition
+      ease-in-out
+      m-0
+      focus:text-gray-700
+      focus:bg-white
+      focus:border-blue-600
+      focus:outline-none
+    "
   />
 </template>
 
 <script>
-import {
-  shuffle,
-  encodeDataToURI
-} from "@/js/shared.js";
-
-// // https://stackoverflow.com/a/68681664/4096078
-// import { computed, defineComponent, useRoute } from '@nuxtjs/composition-api'
+import { shuffle, encodeDataToURI } from "@/js/shared.js";
 
 export default {
   name: "TextareaField",
   props: {
     restoredData: null,
-  },  
+  },
   data() {
     return {
       buttonIsEnabled: false,
@@ -176,31 +175,23 @@ export default {
     },
   },
   mounted() {
-      // check if there's prop data
-      console.log("inside textareField mounted!", this.restoredData)
-      if (typeof this.restoredData === 'object') {
-        console.log("inside textareField mounted! --> data restored from URL successful!")
-        this.submittedData25 = this.restoredData.data25;
-        this.submittedDataArray = this.restoredData.dataArray;
-        this.submittedData = this.restoredData.data;
 
-        this.checkSubmittedData();
-        
-      } else {
-        // check default stuff
-        console.log("inside textareField mounted! --> in else, this submittedData");
+    // check if there's prop data
+    if (typeof this.restoredData === "object") {
+      this.submittedData25 = this.restoredData.data25;
+      this.submittedDataArray = this.restoredData.dataArray;
+      this.submittedData = this.restoredData.data;
 
-        this.checkSubmittedData();
-      }
+      this.checkSubmittedData();
+    } else {
 
-
+      // check default stuff
+      this.checkSubmittedData();
+    }
   },
   methods: {
     emitToParent(attributeName, value) {
       // emit upwards
-      // this.$emit('content', this.submittedDataArray);
-      console.log("I've emitted", attributeName);
-      console.log(value);
       this.$emit(attributeName, value);
     },
 
@@ -217,17 +208,9 @@ export default {
         this.submittedDataArray = text.split(/\n/g);
       }
     },
-
-    // new button to save the data in json
-
-    // new button to share the url of this.
-
     bingoButtonClicked() {
       // run it to check the values
       this.checkSubmittedData();
-
-      console.log("Before emitting to parent!");
-      console.log(this.submittedDataArray);
 
       // update with attribute/value
       this.submittedData25 = this.return25Entries(this.submittedDataArray);
@@ -235,18 +218,12 @@ export default {
       if (this.submittedData25.length === 25) {
         this.emitToParent("content", this.submittedData25);
       } else {
-        console.log("SOMETHING WENT WRONG");
+        console.error("SOMETHING WENT WRONG WITH THE BINGO BUTTON!");
       }
     },
     return25Entries(value) {
-      console.log("return 25 entries starting now");
-      console.log("current value");
-      console.log(value);
       // strip it so only 25 show up
       const newValue = value.length < 25 ? value : value.slice(0, 25);
-
-      console.log("Before cleaning it up");
-      console.log({ newValue });
 
       // replace number 13
       newValue[12] = "Free Space";
@@ -254,10 +231,6 @@ export default {
       return newValue;
     },
     shuffleButtonClicked() {
-      // check if submitted data is the same
-
-      console.log("this.submittedDataArray", this.submittedDataArray);
-
       // update with attribute/value
       this.submittedData25 = this.return25Entries(
         shuffle(this.submittedDataArray)
@@ -266,45 +239,30 @@ export default {
       this.emitToParent("content", this.submittedData25);
     },
     exportButtonClicked() {
-
       // show the input
       this.exportInputIsShowing = true;
 
-      // 1 - get what's in the content area
-      console.log("exporting button now!");
-
+      // 1 - get all the import data
       const preExportedData = {
         data: this.submittedData,
         dataArray: toRaw(this.submittedDataArray),
         data25: toRaw(this.submittedData25),
       };
 
-      console.log(preExportedData);
-
-
       // const baseUrl = 'localhost:3000';
       const baseUrl = window.location.origin;
+
       // 2 - turn it into a hash
-      // console.log(encodeBase64(encodeDataToURL(preExportedData)))
-      // stringify -> encode it for URI safety -> base64 it
-      // const stringify = JSON.stringify(preExportedData);
-      // console.log({stringify})
-      // const encodeURI = encodeURIComponent(stringify);
-      // console.log({encodeURI})
-      // const base64 = encodeBase64(encodeURI)
-      // console.log({base64})
       const base64 = encodeDataToURI(preExportedData);
 
-      console.log("finished baseUri, now exporting to input field")
+      console.log("finished baseUri, now exporting to input field");
       this.exportInputField = `${baseUrl}/?src=${base64}`;
-      
-      // TODO: 3 - it should add a popup saying the link is now in your clipboard.
 
+      // TODO: 3 - it should add a popup saying the link is now in your clipboard.
     },
     exportInputOnClick() {
-        // TODO: copy to clipboard
-
-        console.log("ive been clicked!");
+      // TODO: copy to clipboard
+      console.log("ive been clicked!");
     },
     toggleSelection() {
       this.isSelected = !this.isSelected;
