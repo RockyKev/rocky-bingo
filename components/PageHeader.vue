@@ -60,6 +60,22 @@
                 text-white
                 font-bold
               "
+              href="https://github.com/users/RockyKev/projects/1"
+              >Features List</a
+            >
+          </li>
+
+        
+          <li>
+            <a
+              class="
+                md:p-4
+                py-2
+                block
+                hover:text-purple-200
+                text-white
+                font-bold
+              "
               href="https://github.com/RockyKev/rocky-bingo"
               >Github</a
             >
