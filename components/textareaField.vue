@@ -282,7 +282,8 @@ export default {
       console.log(preExportedData);
 
 
-      const baseUrl = 'localhost:3000';
+      // const baseUrl = 'localhost:3000';
+      const baseUrl = window.location.origin;
       // 2 - turn it into a hash
       // console.log(encodeBase64(encodeDataToURL(preExportedData)))
       // stringify -> encode it for URI safety -> base64 it

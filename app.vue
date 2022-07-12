@@ -76,7 +76,7 @@
 
 <script>
 import BingoCell from "@/components/BingoCell.vue";
-import TextareaField from "@/components/TextareaField.vue";
+import TextareaField from "@/components/textareaField.vue";
 import PageHeader from "./components/PageHeader.vue";
 import { shuffle, decodeURIToData } from "@/js/shared.js";
 
