@@ -152,7 +152,7 @@ export default {
     }
 
     // TODO: BUG here! Will create multiple Free Space
-    this.words = shuffle(this.words);
+    // this.words = shuffle(this.words);
     this.words[12] = "Free Space";
   },
 };

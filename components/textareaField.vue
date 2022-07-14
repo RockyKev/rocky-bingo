@@ -2,26 +2,7 @@
   <textarea
     @change="checkSubmittedData"
     spellcheck="true"
-    class="
-      form-control
-      block
-      w-full
-      px-3
-      py-1.5
-      text-base
-      font-normal
-      text-gray-700
-      bg-white bg-clip-padding
-      border border-solid border-gray-300
-      rounded
-      transition
-      ease-in-out
-      m-0
-      focus:text-gray-700
-      focus:bg-white
-      focus:border-blue-600
-      focus:outline-none
-    "
+    class="textarea"
     rows="20"
     v-model="submittedData"
   ></textarea>
@@ -30,25 +11,7 @@
     @click="bingoButtonClicked"
     :disabled="!buttonIsEnabled"
     :class="{ 'opacity-60': !buttonIsEnabled }"
-    class="
-      inline-block
-      px-7
-      py-3
-      bg-blue-600
-      text-white
-      font-medium
-      text-sm
-      leading-snug
-      uppercase
-      rounded
-      shadow-md
-      hover:bg-blue-700 hover:shadow-lg
-      focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
-      active:bg-blue-800 active:shadow-lg
-      transition
-      duration-150
-      ease-in-out
-    "
+    class="primary-button"
   >
     {{ buttonText }}
   </button>
@@ -56,25 +19,7 @@
     @click="shuffleButtonClicked"
     :disabled="!buttonIsEnabled"
     :class="{ 'opacity-60': !buttonIsEnabled }"
-    class="
-      inline-block
-      px-7
-      py-3
-      bg-blue-600
-      text-white
-      font-medium
-      text-sm
-      leading-snug
-      uppercase
-      rounded
-      shadow-md
-      hover:bg-blue-700 hover:shadow-lg
-      focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
-      active:bg-blue-800 active:shadow-lg
-      transition
-      duration-150
-      ease-in-out
-    "
+    class="primary-button"
   >
     Shuffle
   </button>
@@ -83,25 +28,7 @@
     @click="exportButtonClicked"
     :disabled="!exportButtonIsEnabled"
     :class="{ 'opacity-60': !exportButtonIsEnabled }"
-    class="
-      inline-block
-      px-7
-      py-3
-      bg-blue-600
-      text-white
-      font-medium
-      text-sm
-      leading-snug
-      uppercase
-      rounded
-      shadow-md
-      hover:bg-blue-700 hover:shadow-lg
-      focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
-      active:bg-blue-800 active:shadow-lg
-      transition
-      duration-150
-      ease-in-out
-    "
+    class="primary-button"
   >
     Export
   </button>
@@ -111,26 +38,7 @@
     @click="exportInputOnClick"
     v-model="exportInputField"
     placeholder="stuff"
-    class="
-      form-control
-      block
-      w-full
-      px-3
-      py-1.5
-      text-base
-      font-normal
-      text-gray-700
-      bg-white bg-clip-padding
-      border border-solid border-gray-300
-      rounded
-      transition
-      ease-in-out
-      m-0
-      focus:text-gray-700
-      focus:bg-white
-      focus:border-blue-600
-      focus:outline-none
-    "
+    class="textarea"
   />
 </template>
 
@@ -175,7 +83,6 @@ export default {
     },
   },
   mounted() {
-
     // check if there's prop data
     if (typeof this.restoredData === "object") {
       this.submittedData25 = this.restoredData.data25;
@@ -184,7 +91,6 @@ export default {
 
       this.checkSubmittedData();
     } else {
-
       // check default stuff
       this.checkSubmittedData();
     }
@@ -272,5 +178,44 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.textarea {
+  @apply block
+      w-full
+      px-3
+      py-1.5
+      text-base
+      font-normal
+      text-gray-700
+      bg-white bg-clip-padding
+      border border-solid border-gray-300
+      rounded
+      transition
+      ease-in-out
+      m-0
+      focus:text-gray-700
+      focus:bg-white
+      focus:border-blue-600
+      focus:outline-none;
+}
+
+.primary-button {
+  @apply inline-block
+      px-7
+      py-3
+      bg-blue-700
+      text-white
+      font-medium
+      text-sm
+      leading-snug
+      uppercase
+      rounded
+      shadow-md
+      hover:bg-blue-800 hover:shadow-lg
+      focus:bg-blue-800 focus:shadow-lg focus:outline-none focus:ring-0
+      active:bg-blue-900 active:shadow-lg
+      transition
+      duration-150
+      ease-in-out;
+}
 </style>
 
