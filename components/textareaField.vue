@@ -1,4 +1,6 @@
 <template>
+
+<!-- TODO: only check count on typing. -->
   <textarea
     @change="checkSubmittedData"
     spellcheck="true"
@@ -104,8 +106,15 @@ export default {
     checkSubmittedData() {
       let text = this.submittedData;
 
-      console.log("commaCount", this.spaceCount);
+      // remove blank arrays
+      let textAsArray = (text.match(/[^\n]*\n[^\n]*/gi) || []);
+      // count the space
       this.spaceCount = (text.match(/[^\n]*\n[^\n]*/gi) || []).length;
+
+      console.log("checksubmittedData")
+      console.log("this submitteddata", this.submittedData)
+      console.log("textAsArray", textAsArray)
+      console.log("commaCount", this.spaceCount);
 
       if (this.spaceCount < this.spaceMinimum) {
         this.submittedDataArray = [];
